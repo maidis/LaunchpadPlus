@@ -4,7 +4,7 @@ struct HelpView: View {
     @ObservedObject var viewModel: AppListViewModel
     
     var body: some View {
-        ZOceanModal {
+        ZOceanModal(onClose: { viewModel.showingHelp = false }) {
             VStack(spacing: 0) {
                 // Header
                 HStack {
@@ -24,34 +24,39 @@ struct HelpView: View {
                 
                 // Content
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 24) {
                         HelpSection(title: "Navigation", items: [
                             "Arrow Keys: Navigate through apps",
                             "Return: Launch selected application",
                             "Escape: Hide LaunchpadPlus",
-                            "Trackpad Swipe: Switch pages",
-                            "Scroll Wheel: Switch pages"
+                            "Trackpad Swipe/Wheel: Switch pages"
+                        ])
+                        
+                        HelpSection(title: "Folders", items: [
+                            "Create: Drag an app onto another to create a folder.",
+                            "Rename: Click the folder name or the pencil icon inside an open folder.",
+                            "Management: Move apps out via right-click or dissolve the entire folder using the header button."
+                        ])
+                        
+                        HelpSection(title: "Recent Apps", items: [
+                            "Displays your last 5 opened applications.",
+                            "Configuration: Can be toggled and positioned (Side or Bottom) in Settings > Advanced."
                         ])
                         
                         HelpSection(title: "Search", items: [
-                            "Start typing any characters to search for apps immediately.",
-                            "Backspace: Remove last character from search",
-                            "Clear Search: Click the X button in search bar"
+                            "Start typing anywhere to search. Selection and copying are supported via mouse.",
+                            "Clear: Click the close button or use Backspace."
                         ])
                         
                         HelpSection(title: "Management", items: [
-                            "Drag and Drop: Rearrange apps (Manual sort mode required)",
-                            "Right Click: Add to favorites or move app to Trash",
-                            "Settings: Access grid size, sorting, and hotkey options via the gear icon"
+                            "Favorites: Drag apps to the top bar or use context menu (Right-click).",
+                            "Hide Apps: Use Context Menu > Hide App. Manage them in Settings > Advanced.",
+                            "Uninstaller: Right-click any non-system app to move it to Trash."
                         ])
                         
-                        HelpSection(title: "Global Shortcut", items: [
-                            "Change the activation shortcut in Settings > Hotkey Settings.",
-                            "A manual application restart is required after changing the shortcut."
-                        ])
-                        
-                        HelpSection(title: "Background", items: [
-                            "Click anywhere on the empty background to dismiss LaunchpadPlus."
+                        HelpSection(title: "Pro Tips", items: [
+                            "Background Click: Click any empty area to dismiss the app immediately.",
+                            "Launch at Login: Enable in Advanced settings for a seamless startup experience (starts hidden)."
                         ])
                     }
                     .padding()
@@ -77,19 +82,20 @@ struct HelpSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.blue)
+            Text(title.uppercased())
+                .font(.system(size: 13, weight: .black))
+                .foregroundColor(.blue.opacity(0.8))
             
             ForEach(items, id: \.self) { item in
                 HStack(alignment: .top, spacing: 10) {
-                    Circle()
-                        .fill(Color.gray.opacity(0.5))
-                        .frame(width: 6, height: 6)
-                        .padding(.top, 6)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundColor(.blue.opacity(0.5))
+                        .padding(.top, 4)
                     Text(item)
-                        .font(.subheadline)
-                        .foregroundColor(.white.opacity(0.9))
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.95))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }

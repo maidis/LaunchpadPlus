@@ -121,6 +121,7 @@ final class AppListViewModel: ObservableObject {
     @Published var isRecordingHotkey: Bool = false
     @Published var isRestarting: Bool = false
     @Published var showingHelp: Bool = false
+    @Published var showingAbout: Bool = false
     @Published var pendingHotkeyKeyCode: Int? = nil
     @Published var pendingHotkeyModifiers: Int? = nil
     

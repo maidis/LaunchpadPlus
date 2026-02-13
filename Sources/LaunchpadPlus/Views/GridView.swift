@@ -116,6 +116,9 @@ struct GridView: View {
                             Button("Help & Documentation") {
                                 viewModel.showingHelp = true
                             }
+                            Button("About LaunchpadPlus") {
+                                viewModel.showingAbout = true
+                            }
                             Divider()
                             Button("Quit LaunchpadPlus", role: .destructive) {
                                 NSApplication.shared.terminate(nil)
@@ -393,6 +396,10 @@ struct GridView: View {
                 if viewModel.showingHelp {
                     HelpView(viewModel: viewModel)
                 }
+
+                if viewModel.showingAbout {
+                    AboutView(viewModel: viewModel)
+                }
                 
                 if viewModel.showingHiddenAppsManager {
                     HiddenAppsManagerView(viewModel: viewModel)
@@ -533,7 +540,15 @@ struct GridView: View {
                 }
             }
             .onChange(of: inputManager.scrollDelta) { delta in
-                viewModel.handleScroll(delta: delta)
+                // Only handle page scrolling if no modal/overlay is blocking the view
+                let isOverlayActive = viewModel.showingHelp || 
+                                    viewModel.showingAbout || 
+                                    viewModel.showingHiddenAppsManager || 
+                                    viewModel.openedFolder != nil
+                
+                if !isOverlayActive {
+                    viewModel.handleScroll(delta: delta)
+                }
             }
             .onReceive(viewModel.objectWillChange) { _ in
                 redrawID = UUID()

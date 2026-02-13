@@ -1,5 +1,7 @@
 # LaunchpadPlus
 
+![LaunchpadPlus Screenshot](Screenshoot.png)
+
 LaunchpadPlus is a modern and customizable alternative application launcher for macOS, developed using Swift and SwiftUI.
 
 ## Overview
@@ -8,22 +10,21 @@ LaunchpadPlus enhances the standard macOS Launchpad experience by providing adva
 
 ## Primary Features
 
-- **Full-Screen Coverage**: The interface covers the entire display, including safe areas and the screen notch, ensuring a consistent visual experience.
+- **Foldering System**: Group applications into named folders with ease. Supports drag-and-drop folder creation, renaming, and mass-dissolving.
+- **Recently Opened**: A dynamic row showing your last 5 used applications. Can be positioned to the Side of Favorites or in a dedicated Bottom row.
+- **Hidden Apps Management**: Keep your launcher clean by hiding system utilities or rarely used apps via a dedicated manager view.
+- **Full-Screen Coverage**: The interface covers the entire display, providing a immersive experience.
 - **Dynamic Sorting Options**:
   - **Alphabetical**: Standard A-Z organization.
-  - **Installation Date**: Sorts applications by the date they were added to the directory using system metadata.
-  - **Most Used**: Ranks applications based on personal usage statistics.
-  - **Manual**: Supports custom arrangements via drag-and-drop interactions.
-- **Directory Observation**: Monitors system application folders in real time and automatically updates the application list when items are installed or removed.
-- **Advanced Interaction**:
-  - **Background Dismissal**: Clicking any empty area on the background hides the application.
-  - **Keyboard Support**: Navigate using arrow keys, perform rapid character-based searches, and launch apps with the return key.
-  - **Navigation**: Supports trackpad swipes, scroll wheel integration, and circular page transitions.
-- **Hotkey Customization**: Includes a dedicated recording dialog to set a custom global activation shortcut with real-time feedback.
-- **Single Instance Control**: Prevents multiple copies from running simultaneously to ensure stability and avoid shortcut conflicts.
-- **Favorites Bar**: Provides persistent access to a selected row of favorite applications across all pages.
-- **Configurable Grid**: Allows users to adjust the number of rows and columns to suit different screen sizes and preferences.
-- **Application Management**: Directly manage applications, including the ability to toggle system utilities and move items to the Trash.
+  - **Installation Date**: Sorts applications by metadata.
+  - **Most Used**: Ranks applications based on usage counts.
+  - **Manual**: Custom arrangements via drag-and-drop.
+- **Favorites Bar**: A persistent "Dock" at the top of every page for your most important apps.
+- **Launch at Login**: Perfectly integrated with macOS background services to start as soon as you log in.
+- **Advanced UI/UX**:
+  - **Glassmorphism Design**: High-end background blur and premium aesthetics.
+  - **Micro-animations**: Smooth hover transitions and spring animations.
+  - **Keyboard Mastery**: Full arrow-key navigation, instant search, and customizable global hotkey.
 
 ## Technical Specifications
 
