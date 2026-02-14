@@ -5,8 +5,6 @@ struct HiddenAppsManagerView: View {
     
     // We need to look up app info for hidden paths
     var hiddenApps: [(path: String, name: String)] {
-        // Since hidden apps aren't in viewModel.apps, we might need a way to find their names
-        // For now, we'll try to find them in allApps or just use the filename
         viewModel.hiddenPaths.map { path in
             let name = (path as NSString).lastPathComponent.replacingOccurrences(of: ".app", with: "")
             return (path: path, name: name)
@@ -17,7 +15,7 @@ struct HiddenAppsManagerView: View {
         ZOceanModal {
             VStack(spacing: 0) {
                 HStack {
-                    Text("Hidden Applications")
+                    Text(L10n.hiddenAppsTitle)
                         .font(.title2.bold())
                     Spacer()
                     Button(action: { viewModel.showingHiddenAppsManager = false }) {
@@ -36,7 +34,7 @@ struct HiddenAppsManagerView: View {
                         Image(systemName: "eye")
                             .font(.system(size: 50))
                             .foregroundColor(.gray.opacity(0.5))
-                        Text("No hidden applications")
+                        Text(L10n.noHiddenApps)
                             .foregroundColor(.gray)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -53,7 +51,7 @@ struct HiddenAppsManagerView: View {
                                             .foregroundColor(.gray)
                                     }
                                     Spacer()
-                                    Button("Unhide") {
+                                    Button(L10n.unhide) {
                                         viewModel.unhideApp(path: app.path)
                                     }
                                     .buttonStyle(.bordered)
@@ -71,7 +69,7 @@ struct HiddenAppsManagerView: View {
                 Divider().background(Color.white.opacity(0.2))
                 
                 HStack {
-                    Button("Unhide All") {
+                    Button(L10n.unhideAll) {
                         viewModel.unhideAllApps()
                         viewModel.showingHiddenAppsManager = false
                     }
@@ -80,7 +78,7 @@ struct HiddenAppsManagerView: View {
                     
                     Spacer()
                     
-                    Button("Close") {
+                    Button(L10n.close) {
                         viewModel.showingHiddenAppsManager = false
                     }
                     .buttonStyle(.borderedProminent)

@@ -20,6 +20,7 @@ LaunchpadPlus enhances the standard macOS Launchpad experience by providing adva
   - **Most Used**: Ranks applications based on usage counts.
   - **Manual**: Custom arrangements via drag-and-drop.
 - **Favorites Bar**: A persistent "Dock" at the top of every page for your most important apps.
+- **Multi-language Support**: Fully localized in English and Turkish. Supports automatic system language detection and manual switching in settings.
 - **Launch at Login**: Perfectly integrated with macOS background services to start as soon as you log in.
 - **Advanced UI/UX**:
   - **Glassmorphism Design**: High-end background blur and premium aesthetics.

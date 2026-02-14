@@ -8,7 +8,7 @@ struct HelpView: View {
             VStack(spacing: 0) {
                 // Header
                 HStack {
-                    Text("LaunchpadPlus Help")
+                    Text(L10n.helpTitle)
                         .font(.title2.bold())
                     Spacer()
                     Button(action: { viewModel.showingHelp = false }) {
@@ -25,38 +25,39 @@ struct HelpView: View {
                 // Content
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
-                        HelpSection(title: "Navigation", items: [
-                            "Arrow Keys: Navigate through apps",
-                            "Return: Launch selected application",
-                            "Escape: Hide LaunchpadPlus",
-                            "Trackpad Swipe/Wheel: Switch pages"
+                        HelpSection(title: L10n.navigation, items: [
+                            L10n.navItem1,
+                            L10n.navItem2,
+                            L10n.navItem3,
+                            L10n.navItem4
                         ])
                         
-                        HelpSection(title: "Folders", items: [
-                            "Create: Drag an app onto another to create a folder.",
-                            "Rename: Click the folder name or the pencil icon inside an open folder.",
-                            "Management: Move apps out via right-click or dissolve the entire folder using the header button."
+                        HelpSection(title: L10n.folders, items: [
+                            L10n.folderItem1,
+                            L10n.folderItem2,
+                            L10n.folderItem3
                         ])
                         
-                        HelpSection(title: "Recent Apps", items: [
-                            "Displays your last 5 opened applications.",
-                            "Configuration: Can be toggled and positioned (Side or Bottom) in Settings > Advanced."
+                        HelpSection(title: L10n.recentAppsHeader, items: [
+                            L10n.recentAppsItem1,
+                            L10n.recentAppsItem2
                         ])
                         
-                        HelpSection(title: "Search", items: [
-                            "Start typing anywhere to search. Selection and copying are supported via mouse.",
-                            "Clear: Click the close button or use Backspace."
+                        HelpSection(title: L10n.searchPlaceholder, items: [
+                            L10n.searchItem1,
+                            L10n.searchItem2
                         ])
                         
-                        HelpSection(title: "Management", items: [
-                            "Favorites: Drag apps to the top bar or use context menu (Right-click).",
-                            "Hide Apps: Use Context Menu > Hide App. Manage them in Settings > Advanced.",
-                            "Uninstaller: Right-click any non-system app to move it to Trash."
+                        HelpSection(title: L10n.advanced, items: [
+                            L10n.managementItem1,
+                            L10n.managementItem2,
+                            L10n.managementItem3,
+                            L10n.managementItem4
                         ])
                         
-                        HelpSection(title: "Pro Tips", items: [
-                            "Background Click: Click any empty area to dismiss the app immediately.",
-                            "Launch at Login: Enable in Advanced settings for a seamless startup experience (starts hidden)."
+                        HelpSection(title: L10n.proTips, items: [
+                            L10n.proTipsItem1,
+                            L10n.proTipsItem2
                         ])
                     }
                     .padding()

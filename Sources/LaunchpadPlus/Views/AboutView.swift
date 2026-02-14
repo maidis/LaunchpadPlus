@@ -17,7 +17,7 @@ struct AboutView: View {
                         .font(.title.bold())
                         .foregroundColor(.white)
                     
-                    Text("Version 1.2.0 (Premium Build)")
+                    Text(L10n.versionInfo("1.2.0"))
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
@@ -25,13 +25,13 @@ struct AboutView: View {
                 Divider().background(Color.white.opacity(0.1)).frame(width: 200)
                 
                 VStack(spacing: 15) {
-                    Text("A modern, fast, and highly customizable application launcher designed for power users.")
+                    Text(L10n.appDescription)
                         .font(.system(size: 14))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white.opacity(0.8))
                         .padding(.horizontal, 40)
                     
-                    Text("Crafted with Swift & SwiftUI")
+                    Text(L10n.craftedWith)
                         .font(.caption)
                         .foregroundColor(.blue.opacity(0.7))
                 }
@@ -46,7 +46,7 @@ struct AboutView: View {
                     .font(.system(size: 10))
                     .foregroundColor(.gray)
                     
-                    Button("Close") {
+                    Button(L10n.close) {
                         viewModel.showingAbout = false
                     }
                     .buttonStyle(PlainButtonStyle())

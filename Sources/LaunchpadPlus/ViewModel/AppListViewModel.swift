@@ -75,6 +75,30 @@ final class AppListViewModel: ObservableObject {
         }
     }
     
+    enum AppLanguage: String, CaseIterable {
+        case system = "system"
+        case en = "en"
+        case tr = "tr"
+        
+        @MainActor
+        var localizedName: String {
+            switch self {
+            case .system: return L10n.systemLanguage
+            case .en: return "English"
+            case .tr: return "Türkçe"
+            }
+        }
+    }
+    
+    @Published var appLanguage: AppLanguage = AppLanguage(rawValue: UserDefaults.standard.string(forKey: "appLanguage") ?? "system") ?? .system {
+        didSet {
+            UserDefaults.standard.set(appLanguage.rawValue, forKey: "appLanguage")
+            // Notify localization helper
+            L10n.updateLanguage(appLanguage)
+            objectWillChange.send()
+        }
+    }
+    
     @Published var searchText: String = "" {
         didSet {
             // Avoid infinite loops if filterApps modifies searchText (it doesn't)
@@ -185,6 +209,10 @@ final class AppListViewModel: ObservableObject {
         // (We will handle reconstruction after refreshApps/allApps is populated)
         
         setupDirectoryWatcher()
+        
+        // Initialize localization
+        L10n.updateLanguage(appLanguage)
+        
         refreshApps()
     }
     
@@ -480,7 +508,7 @@ final class AppListViewModel: ObservableObject {
         self.allApps = newAllApps
         
         // Save manual order
-        let orderPaths = newAllApps.map { $0.path }
+        let _ = newAllApps.map { $0.path }
         saveManualOrder()
         
         filterApps()

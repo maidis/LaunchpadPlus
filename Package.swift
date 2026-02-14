@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "LaunchpadPlus",
+    defaultLocalization: "en",
     platforms: [
         .macOS(.v12)
     ],

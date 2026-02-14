@@ -40,7 +40,7 @@ struct GridView: View {
                         Spacer()
                         
                         HStack {
-                            TextField("Search", text: Binding(
+                            TextField(L10n.searchPlaceholder, text: Binding(
                                 get: { viewModel.searchText },
                                 set: { viewModel.searchText = $0 }
                             ))
@@ -63,64 +63,70 @@ struct GridView: View {
                         .frame(width: 300)
                         
                         Menu {
-                            Text("Grid Settings")
-                            Button("5 Rows") { viewModel.rows = 5 }
-                            Button("6 Rows") { viewModel.rows = 6 }
-                            Button("7 Rows") { viewModel.rows = 7 }
+                            Text(L10n.gridSettings)
+                            Button("5 \(L10n.rows)") { viewModel.rows = 5 }
+                            Button("6 \(L10n.rows)") { viewModel.rows = 6 }
+                            Button("7 \(L10n.rows)") { viewModel.rows = 7 }
                             Divider()
-                            Button("5 Cols") { viewModel.cols = 5 }
-                            Button("7 Cols") { viewModel.cols = 7 }
-                            Button("9 Cols") { viewModel.cols = 9 }
+                            Button("5 \(L10n.cols)") { viewModel.cols = 5 }
+                            Button("7 \(L10n.cols)") { viewModel.cols = 7 }
+                            Button("9 \(L10n.cols)") { viewModel.cols = 9 }
                             Divider()
-                            Button(viewModel.includeUtilities ? "Hide Utilities" : "Show Utilities") {
+                            Button(viewModel.includeUtilities ? L10n.hideUtilities : L10n.showUtilities) {
                                 viewModel.includeUtilities.toggle()
                             }
                             Divider()
-                            Menu("Sort By") {
+                            Menu(L10n.sortBy) {
                                 ForEach(AppListViewModel.SortOrder.allCases, id: \.self) { order in
-                                    Button(order.rawValue) {
+                                    Button(order.rawValue.localized) {
                                         viewModel.sortOrder = order
                                     }
                                 }
                             }
                             Divider()
-                            Menu("Hotkey Settings") {
-                                Button(viewModel.isRecordingHotkey ? "Recording..." : "Change Shortcut (\(hotkeyLabel))") {
+                            Menu(L10n.hotkeySettings) {
+                                Button(viewModel.isRecordingHotkey ? L10n.recording : "\(L10n.changeShortcut) (\(hotkeyLabel))") {
                                     viewModel.isRecordingHotkey.toggle()
                                 }
-                                Text("Current: \(hotkeyLabel)")
+                                Text(L10n.currentHotkey(hotkeyLabel))
                                     .font(.caption)
                                     .foregroundColor(.gray)
                             }
                             Divider()
-                            Menu("Advanced") {
-                                Toggle("Launch at Login", isOn: $viewModel.launchAtLogin)
+                            Menu(L10n.advanced) {
+                                Toggle(L10n.launchAtLogin, isOn: $viewModel.launchAtLogin)
                                 Divider()
-                                Toggle("Show Recent Apps", isOn: $viewModel.showRecentlyOpened)
+                                Toggle(L10n.showRecentApps, isOn: $viewModel.showRecentlyOpened)
                                 if viewModel.showRecentlyOpened {
-                                    Picker("Recent Position", selection: $viewModel.recentlyOpenedPosition) {
+                                    Picker(L10n.recentPosition, selection: $viewModel.recentlyOpenedPosition) {
                                         ForEach(AppListViewModel.RecentPosition.allCases, id: \.self) { pos in
-                                            Text(pos.rawValue).tag(pos)
+                                            Text(pos.rawValue.localized).tag(pos)
                                         }
                                     }
                                 }
                                 Divider()
-                                Button("Manage Hidden Apps") {
+                                Button(L10n.manageHiddenApps) {
                                     viewModel.showingHiddenAppsManager = true
                                 }
-                                Button("Unhide All Apps") {
+                                Button(L10n.unhideAllApps) {
                                     viewModel.unhideAllApps()
+                                }
+                                Divider()
+                                Picker(L10n.language, selection: $viewModel.appLanguage) {
+                                    ForEach(AppListViewModel.AppLanguage.allCases, id: \.self) { lang in
+                                        Text(lang.localizedName).tag(lang)
+                                    }
                                 }
                             }
                             Divider()
-                            Button("Help & Documentation") {
+                            Button(L10n.helpDocumentation) {
                                 viewModel.showingHelp = true
                             }
-                            Button("About LaunchpadPlus") {
+                            Button(L10n.aboutLaunchpadPlus) {
                                 viewModel.showingAbout = true
                             }
                             Divider()
-                            Button("Quit LaunchpadPlus", role: .destructive) {
+                            Button(L10n.quitLaunchpadPlus, role: .destructive) {
                                 NSApplication.shared.terminate(nil)
                             }
                         } label: {
@@ -178,7 +184,7 @@ struct GridView: View {
                                             .padding(.horizontal, 10)
                                             
                                         VStack(alignment: .leading, spacing: 2) {
-                                            Text("RECENT")
+                                            Text(L10n.recentHeader)
                                                 .font(.system(size: 9, weight: .black))
                                                 .foregroundColor(.blue.opacity(0.7))
                                                 .padding(.leading, 10)
@@ -225,7 +231,7 @@ struct GridView: View {
                     // Main Grid
                     ZStack {
                         if pages.isEmpty {
-                            Text("No apps found")
+                            Text(L10n.noAppsFound)
                                 .foregroundColor(.white)
                         } else {
                             ForEach(0..<pages.count, id: \.self) { pageIndex in
@@ -324,11 +330,11 @@ struct GridView: View {
                                 .foregroundColor(.blue)
                             
                             VStack(spacing: 8) {
-                                Text("Record New Shortcut")
+                                Text(L10n.recordNewShortcut)
                                     .font(.title3.bold())
                                     .foregroundColor(.white)
                                 
-                                Text("1. Press your desired keys\n2. Click 'Save' to confirm\n(Manual restart required to activate)")
+                                Text(L10n.recordShortcutDesc)
                                     .font(.subheadline)
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(.gray)
@@ -345,7 +351,7 @@ struct GridView: View {
                                         .foregroundColor(.white)
                                         .transition(.scale.combined(with: .opacity))
                                 } else {
-                                    Text("Waiting for keys...")
+                                    Text(L10n.waitingForKeys)
                                         .font(.headline)
                                         .italic()
                                         .foregroundColor(.gray)
@@ -354,7 +360,7 @@ struct GridView: View {
                             .padding(.horizontal)
                             
                             HStack(spacing: 15) {
-                                Button("Cancel") {
+                                Button(L10n.cancel) {
                                     viewModel.isRecordingHotkey = false
                                     viewModel.pendingHotkeyKeyCode = nil
                                     viewModel.pendingHotkeyModifiers = nil
@@ -362,7 +368,7 @@ struct GridView: View {
                                 .buttonStyle(.bordered)
                                 .controlSize(.large)
                                 
-                                Button("Save Shortcut") {
+                                Button(L10n.saveShortcut) {
                                     if let code = viewModel.pendingHotkeyKeyCode, let mods = viewModel.pendingHotkeyModifiers {
                                         viewModel.hotkeyKeyCode = code
                                         viewModel.hotkeyModifiers = mods
@@ -414,7 +420,7 @@ struct GridView: View {
                         VStack(spacing: 30) {
                             HStack {
                                 if isEditingFolderName {
-                                    TextField("Folder Name", text: $editingFolderName)
+                                    TextField(L10n.folderNamePlaceholder, text: $editingFolderName)
                                         .textFieldStyle(PlainTextFieldStyle())
                                         .font(.system(size: 32, weight: .bold))
                                         .foregroundColor(.white)
@@ -447,7 +453,7 @@ struct GridView: View {
                                 Button(action: { viewModel.dissolveFolder(folderName: folder.name) }) {
                                     HStack {
                                         Image(systemName: "pip.remove")
-                                        Text("Dissolve Folder")
+                                        Text(L10n.dissolveFolder)
                                     }
                                     .foregroundColor(.red.opacity(0.8))
                                 }
@@ -636,25 +642,25 @@ struct AppIconView: View {
         }
         .contextMenu {
             if isFavorite {
-                Button("Remove from Favorites") { viewModel.removeFromFavorites(app) }
+                Button(L10n.removeFromFavorites) { viewModel.removeFromFavorites(app) }
             } else {
-                Button("Add to Favorites") { viewModel.addToFavorites(app) }
+                Button(L10n.addToFavorites) { viewModel.addToFavorites(app) }
             }
             
             if !app.isFolder {
-                Button("Hide App") {
+                Button(L10n.hideApp) {
                     viewModel.hideApp(app)
                 }
             }
             
             if app.isDeletable && !app.isFolder {
                 Divider()
-                Button("Move to Trash") { viewModel.deleteApp(app) }.foregroundColor(.red)
+                Button(L10n.moveToTrash) { viewModel.deleteApp(app) }.foregroundColor(.red)
             }
             
             if let folderName = inFolderName {
                 Divider()
-                Button("Move out of Folder") {
+                Button(L10n.moveOutOfFolder) {
                     viewModel.removeAppFromFolder(app: app, folderName: folderName)
                 }
             }
